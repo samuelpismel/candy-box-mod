@@ -4,8 +4,42 @@ body {
   border: 0;
 }
 
+input[type="checkbox"] {
+  vertical-align: top;
+}
+
 .mod_top_bar {
   border-bottom: 1px dashed #000;
-  padding: 2px;
+  padding: 5px;
   margin-bottom: 5px;
+}
+
+.inline {
+  display: inline;
+}
+
+.save_load {
+  float: right;
+}
+
+.save_load button {
+  margin: 0 2px;
+  padding: 1px 3px;
+}
+
+.save_load button:hover {
+  border: 1px solid #464c54 !important;
+}
+
+.mod_lollipops {
+  display: none;
+}
+
+.mod_candy_converter {
+  display: none;
+}
+
+button.toggle {
+  /*display: none;*/
+  top: 40px;
 }

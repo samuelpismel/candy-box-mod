@@ -150,11 +150,14 @@ var Mod = {
           code = msg.substring(0,5);
           Mod.system.cookies.create('session', code);
           button.css({backgroundColor: '#00bb00'}).animate({backgroundColor: '#ddd'}, 1000)
+          console.log('Game saved!')
         } else {
           alert("There was a problem while saving. Please try again later :/");    
           button.css({backgroundColor: '#ff0000'}).animate({backgroundColor: '#ddd'}, 1000)
+          console.log('Game save error!')
         }
-      });      
+      });
+      console.log('Mod.game.save()')
     },
     load: function() {
       var code = Mod.system.cookies.read('session');
@@ -170,6 +173,15 @@ var Mod = {
         var format = '0,0'
         Mod.top_bar.mod_candies.text(numeral(candies.nbrOwned).format(format));
         Mod.top_bar.mod_lollipops.text(numeral(lollipops.nbrOwned).format(format));
+
+        if ($('#lollipop').css('visibility') != 'hidden') {
+          $('.mod_lollipops').css({display: 'inline'})
+        }
+
+        if ($('#candies_converter').css('display') != 'none') {
+          $('.mod_candy_converter').css({display: 'inline'})
+        }
+
       },
       setUp: function() {
         Mod.top_bar.interval.id = window.setInterval(Mod.top_bar.interval.loop, 100);
@@ -178,13 +190,25 @@ var Mod = {
     setUp: function () {
       var top_html = '';
       top_html += '<div class="mod_top_bar">';
+
+      top_html += '<div class="save_load inline">';
+      top_html += '<span><input type="checkbox" id="mod_autosave" /><label for="mod_autosave">Autosave</label></span>';
       top_html += '<button id="mod_save">Save</button>';
       top_html += '<button id="mod_load">Load</button>';
-      top_html += '<span>Candies: <span id="mod_candies_qty"></span></span>';
+      top_html += '</div>';
+
+      top_html += '<span>Candies: <span id="mod_candies_qty">0</span></span>';
+
+      top_html += '<div class="mod_lollipops inline">';
       top_html += '<span> | </span>';
-      top_html += '<span>Lollipops: <span id="mod_lollipops_qty"></span></span>';
+      top_html += '<span>Lollipops: <span id="mod_lollipops_qty">0</span></span>';
+      top_html += '</div>';
+
+      top_html += '<div class="mod_candy_converter inline">';
       top_html += '<span> | </span>';
       top_html += '<span><input type="checkbox" id="mod_candy_converter" /><label for="mod_candy_converter">Candies converter</label></span>';
+      top_html += '</div>';
+
       top_html += '</div>';
 
       $('body').prepend(top_html);
@@ -194,8 +218,11 @@ var Mod = {
 
       $('#mod_save').on('click', Mod.game.save)
       $('#mod_load').on('click', Mod.game.load)
+
+      $('#saveButton').remove()
+      $('#save').remove()
       if ($('#candies_converter_checkbox').prop('checked')) $('#mod_candy_converter').prop('checked', true)
-      $('#mod_candy_converter').on('click', function(){ $('#candies_converter_checkbox').click() })
+        $('#mod_candy_converter').on('click', function(){ $('#candies_converter_checkbox').click() })
 
       Mod.top_bar.interval.setUp();
 
