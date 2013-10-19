@@ -183,6 +183,8 @@ var Mod = {
       top_html += '<span>Candies: <span id="mod_candies_qty"></span></span>';
       top_html += '<span> | </span>';
       top_html += '<span>Lollipops: <span id="mod_lollipops_qty"></span></span>';
+      top_html += '<span> | </span>';
+      top_html += '<span><input type="checkbox" id="mod_candy_converter" /><label for="mod_candy_converter">Candies converter</label></span>';
       top_html += '</div>';
 
       $('body').prepend(top_html);
@@ -192,6 +194,8 @@ var Mod = {
 
       $('#mod_save').on('click', Mod.game.save)
       $('#mod_load').on('click', Mod.game.load)
+      if ($('#candies_converter_checkbox').prop('checked')) $('#mod_candy_converter').prop('checked', true)
+      $('#mod_candy_converter').on('click', function(){ $('#candies_converter_checkbox').click() })
 
       Mod.top_bar.interval.setUp();
 
@@ -199,6 +203,15 @@ var Mod = {
     }
   },
   hotkeys: {
+    interval: {
+      id: null,
+      loop: function() {
+
+      },
+      setUp: function() {
+        Mod.hotkeys.interval.id = setInterval(Mod.hotkeys.interval.loop, 1000)
+      }
+    },
     setUp: function(){
       var buttons = $('#quest_potions button');
       $(buttons[0]).prop('id', 'seed_potion');
@@ -222,7 +235,7 @@ var Mod = {
 
       $(window).off('keypress', Mod.hotkeys.onKeyPress)
       $(window).on('keypress', Mod.hotkeys.onKeyPress)
-      console.log('Hotkeys binded!')
+      console.log('Hotkeys initialized!')
     },
     keys: {
       48: 'seed_potion', // 0
