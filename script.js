@@ -150,20 +150,46 @@ var Mod = {
           code = msg.substring(0,5);
           Mod.system.cookies.create('session', code);
           button.css({backgroundColor: '#00bb00'}).animate({backgroundColor: '#ddd'}, 1000)
-          console.log('Game saved!')
+          console.log('['+new Date().toLocaleTimeString()+'] Game saved!')
         } else {
           alert("There was a problem while saving. Please try again later :/");    
           button.css({backgroundColor: '#ff0000'}).animate({backgroundColor: '#ddd'}, 1000)
-          console.log('Game save error!')
+          console.log('['+new Date().toLocaleTimeString()+'] Game save error!')
         }
       });
-      console.log('Mod.game.save()')
     },
     load: function() {
       var code = Mod.system.cookies.read('session');
       if (code) {
         window.location.href = "/index.php?pass=" + code
       } 
+    },
+    autosave: {
+      interval: {
+        id: null,
+        loop: function() {
+          Mod.game.save();
+        },
+        setUp: function() {
+          $('#mod_autosave').on('change', function() {
+            var that = $(this);
+            if (that.prop('checked')) {
+              Mod.game.save();
+              Mod.game.autosave.interval.id = setInterval(Mod.game.autosave.interval.loop, 60*1000);
+              localStorage.autosave = true;
+            } else {
+              clearInterval(Mod.game.autosave.interval.id);
+              localStorage.autosave = false;
+            }
+          });
+          if (localStorage.autosave) {
+            $('#mod_autosave').click();
+          }
+        }
+      }
+    },
+    setUp: function() {
+      Mod.game.autosave.interval.setUp();
     }
   },
   top_bar: {
@@ -192,7 +218,7 @@ var Mod = {
       top_html += '<div class="mod_top_bar">';
 
       top_html += '<div class="save_load inline">';
-      top_html += '<span><input type="checkbox" id="mod_autosave" /><label for="mod_autosave">Autosave</label></span>';
+      top_html += '<span class="mod_autosave"><input type="checkbox" id="mod_autosave" /><label for="mod_autosave">Autosave</label></span>';
       top_html += '<button id="mod_save">Save</button>';
       top_html += '<button id="mod_load">Load</button>';
       top_html += '</div>';
@@ -298,6 +324,7 @@ var Mod = {
   setUp: function() {
     Mod.loadFiles();
     Mod.top_bar.setUp();
+    Mod.game.setUp();
     Mod.hotkeys.setUp();
   }
 };

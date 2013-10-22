@@ -31,6 +31,10 @@ input[type="checkbox"] {
   border: 1px solid #464c54 !important;
 }
 
+.mod_autosave {
+  margin-right: 5px;
+}
+
 .mod_lollipops {
   display: none;
 }
@@ -40,6 +44,5 @@ input[type="checkbox"] {
 }
 
 button.toggle {
-  /*display: none;*/
   top: 40px;
 }
