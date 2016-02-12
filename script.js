@@ -152,7 +152,7 @@ var Mod = {
           button.css({backgroundColor: '#00bb00'}).animate({backgroundColor: '#ddd'}, 1000)
           console.log('['+new Date().toLocaleTimeString()+'] Game saved!')
         } else {
-          alert("There was a problem while saving. Please try again later :/");    
+          alert("There was a problem while saving. Please try again later :/");
           button.css({backgroundColor: '#ff0000'}).animate({backgroundColor: '#ddd'}, 1000)
           console.log('['+new Date().toLocaleTimeString()+'] Game save error!')
         }
@@ -162,7 +162,7 @@ var Mod = {
       var code = Mod.system.cookies.read('session');
       if (code) {
         window.location.href = "/index.php?pass=" + code
-      } 
+      }
     },
     autosave: {
       interval: {
@@ -315,12 +315,12 @@ var Mod = {
       if (keys[event.charCode] != undefined)
         $('#'+keys[event.charCode]).click()
     }
-  },  
+  },
   loadFiles: function() {
-    Mod.system.load.stylesheet('http://localhost/candy-box-extension/style.css');
+    Mod.system.load.stylesheet('https://raw.githubusercontent.com/samuelpismel/candy-box-mod/master/style.css');
     Mod.system.load.script('http://raw.github.com/jquery/jquery-color/master/jquery.color.js');
     Mod.system.load.script('http://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js');
-  },  
+  },
   setUp: function() {
     Mod.loadFiles();
     Mod.top_bar.setUp();

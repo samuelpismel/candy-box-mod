@@ -1,1 +1,1 @@
-javascript:(function(){ var d = document,s = d.createElement('script'),t = d.body || d.getElementsByTagName('head')[0] || d.documentElement;s.src = "http://localhost/candy-box-extension/script.js";t.appendChild(s);})();
+javascript:(function(){ var d = document,s = d.createElement('script'),t = d.body || d.getElementsByTagName('head')[0] || d.documentElement;s.src = "https://raw.githubusercontent.com/samuelpismel/candy-box-mod/master/script.js";t.appendChild(s);})();
